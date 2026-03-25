@@ -127,7 +127,7 @@ function isDzongkha(str) {
 
 function formatSkills(text) {
   if (!text) return '';
-  const lines = text.split('\n').map(s => s.trim()).filter(s => s);
+  const lines = text.split(' | ').map(s => s.trim()).filter(s => s);
   const goals = [];
   let i = 0;
   while (i < lines.length) {
