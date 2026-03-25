@@ -127,7 +127,7 @@ function isDzongkha(str) {
 
 function formatSkills(text) {
   if (!text) return '';
-  const lines = text.split(' | ').map(s => s.trim()).filter(s => s);
+  const lines = text.split('\n').map(s => s.trim()).filter(s => s);
   const goals = [];
   let i = 0;
   while (i < lines.length) {
@@ -154,19 +154,35 @@ function stripYear(label) {
 
 function parseCSV(text) {
   const rows = [];
-  const lines = text.split('\n');
-  for (const line of lines) {
-    if (!line.trim()) continue;
-    const cols = [];
-    let cur = '', inQuote = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') { inQuote = !inQuote; }
-      else if (ch === ',' && !inQuote) { cols.push(cur); cur = ''; }
-      else { cur += ch; }
+  let i = 0;
+  while (i < text.length) {
+    const row = [];
+    while (i < text.length) {
+      if (text[i] === '"') {
+        // Quoted field — may contain commas and newlines
+        i++;
+        let field = '';
+        while (i < text.length) {
+          if (text[i] === '"' && text[i+1] === '"') { field += '"'; i += 2; }
+          else if (text[i] === '"') { i++; break; }
+          else { field += text[i++]; }
+        }
+        row.push(field);
+        if (text[i] === ',') i++;
+      } else {
+        let field = '';
+        while (i < text.length && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+          field += text[i++];
+        }
+        row.push(field);
+        if (text[i] === ',') i++;
+      }
+      if (i >= text.length || text[i] === '\n' || text[i] === '\r') break;
     }
-    cols.push(cur);
-    rows.push(cols);
+    // Skip \r\n or \n
+    if (text[i] === '\r') i++;
+    if (text[i] === '\n') i++;
+    if (row.some(c => c.trim())) rows.push(row);
   }
   return rows;
 }
