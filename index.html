@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly Learning Updates — Thimphu Primary School</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@400;600&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'Jomolhari'; src: url('https://fonts.gstatic.com/s/jomolhari/v14/EvONzA1M1Iw_CBd2hsQihMTiDg.woff2') format('woff2'); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Raleway', sans-serif; background: #f5f5f5; color: #222; font-size: 14px; }
+
+  /* SELECTOR PAGE */
+  .selector-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+  .selector { max-width: 480px; width: 100%; text-align: center; }
+  .sel-logo { width: 56px; height: 56px; background: #F4D03F; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; color: #7a6200; margin: 0 auto 1rem; }
+  .sel-name { font-family: 'DM Serif Display', serif; font-size: 24px; color: #222; margin-bottom: 4px; }
+  .sel-sub { font-size: 13px; color: #888; margin-bottom: 2rem; }
+  .sel-prompt { font-size: 15px; font-weight: 600; color: #444; margin-bottom: 1.25rem; }
+  .sel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sel-btn { display: block; background: #fff; border: 2px solid #F4D03F; border-radius: 12px; padding: 1.1rem 1rem; font-family: 'DM Serif Display', serif; font-size: 20px; color: #333; text-decoration: none; cursor: pointer; }
+  .sel-btn:hover { background: #F4D03F; color: #5a4000; }
+  .sel-footer { margin-top: 2rem; font-size: 11px; color: #aaa; }
+
+  /* CLASS PAGE */
+  .class-wrap { display: none; }
+  .page { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem; }
+  .school-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #ddd; cursor: pointer; }
+  .logo { width: 42px; height: 42px; background: #F4D03F; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px; color: #7a6200; flex-shrink: 0; }
+  .school-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: #222; }
+  .school-sub { font-size: 12px; color: #888; }
+  .back-hint { font-size: 11px; color: #aaa; margin-left: auto; }
+  .class-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: #222; margin-bottom: 4px; }
+  .class-sub { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+  .week-header { font-family: 'DM Serif Display', serif; background: #F4D03F; padding: 13px 18px; border-radius: 8px 8px 0 0; font-size: 19px; color: #5a4000; }
+  .week-table { width: 100%; border-collapse: collapse; border: 1px solid #e0c800; border-top: none; margin-bottom: 2rem; background: #fff; }
+  .week-table th { background: #444; color: #fff; text-align: left; padding: 9px 18px; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .week-table td { padding: 11px 18px; font-size: 13px; vertical-align: top; border-top: 1px solid #f0e8b0; color: #222; }
+  .week-table tr:nth-child(even) td { background: #fffdf0; }
+  .subject-col { width: 140px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px; color: #555; }
+  .goal { display: flex; gap: 8px; margin-bottom: 10px; }
+  .goal:last-child { margin-bottom: 0; }
+  .bullet { color: #F4B400; font-size: 16px; line-height: 1.4; flex-shrink: 0; font-weight: 700; }
+  .goal-content { flex: 1; }
+  .dzo-script { font-family: 'Jomolhari', serif; font-size: 15px; line-height: 1.8; display: block; }
+  .dzo-english { display: block; font-size: 13px; line-height: 1.6; color: #222; }
+  .plain-line { font-size: 13px; line-height: 1.65; }
+  .loading { padding: 2rem; text-align: center; color: #888; font-size: 13px; }
+  .archive-toggle { font-size: 13px; color: #555; border: 1px solid #ccc; border-radius: 8px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #eee; margin-bottom: 0.5rem; }
+  .archive-toggle:hover { background: #e4e4e4; }
+  .archive-section { display: none; padding-top: 0.75rem; }
+  .archive-week { margin-bottom: 0.75rem; }
+  .archive-week-label { font-family: 'DM Serif Display', serif; font-size: 14px; color: #666; padding: 7px 14px; background: #e8e8e8; border-radius: 6px 6px 0 0; border: 1px solid #ccc; }
+  .archive-table { width: 100%; border-collapse: collapse; border: 1px solid #ccc; border-top: none; background: #fff; }
+  .archive-table th { background: #bbb; color: #444; text-align: left; padding: 7px 14px; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .archive-table td { padding: 8px 14px; font-size: 12px; vertical-align: top; border-top: 1px solid #e0e0e0; color: #666; line-height: 1.6; }
+  .archive-table .subject-col { width: 120px; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 11px; color: #555; }
+  .no-weeks { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 2rem; text-align: center; color: #888; }
+
+  @media (max-width: 600px) {
+    .page { padding: 1rem 0.75rem; }
+    .class-title { font-size: 20px; }
+    .week-header { font-size: 16px; padding: 10px 14px; }
+    .week-table th, .week-table td { padding: 8px 10px; font-size: 12px; }
+    .subject-col { width: 90px; font-size: 11px; }
+    .plain-line { font-size: 12px; }
+    .dzo-script { font-size: 13px; }
+    .dzo-english { font-size: 12px; }
+    .archive-table td, .archive-table th { padding: 6px 10px; font-size: 11px; }
+    .archive-table .subject-col { width: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SELECTOR PAGE -->
+<div class="selector-wrap" id="selectorPage">
+  <div class="selector">
+    <div class="sel-logo">TPS</div>
+    <div class="sel-name">Thimphu Primary School</div>
+    <div class="sel-sub">Weekly Learning Updates</div>
+    <div class="sel-prompt">Select your child's class</div>
+    <div class="sel-grid">
+      <a class="sel-btn" onclick="loadClass('PP')">PP</a>
+      <a class="sel-btn" onclick="loadClass('1')">Class 1</a>
+      <a class="sel-btn" onclick="loadClass('2')">Class 2</a>
+      <a class="sel-btn" onclick="loadClass('3')">Class 3</a>
+      <a class="sel-btn" onclick="loadClass('4')">Class 4</a>
+      <a class="sel-btn" onclick="loadClass('5')">Class 5</a>
+      <a class="sel-btn" onclick="loadClass('6')">Class 6</a>
+    </div>
+    <div class="sel-footer">Updated every Friday</div>
+  </div>
+</div>
+
+<!-- CLASS PAGE -->
+<div class="class-wrap" id="classPage">
+  <div class="page">
+    <div class="school-header" onclick="showSelector()">
+      <div class="logo">TPS</div>
+      <div>
+        <div class="school-name">Thimphu Primary School</div>
+        <div class="school-sub">Weekly Learning Updates</div>
+      </div>
+      <span class="back-hint">← All classes</span>
+    </div>
+    <div id="classContent"><div class="loading">Loading...</div></div>
+  </div>
+</div>
+
+<script>
+const BASE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTr_CZ2DtWu-i-98WhSdODohQkmmFTmf2WAHb_R8W8mOxLLz-n_exBG_ew-vXHJhfRnk83JPBfhvrHO/pub';
+
+const GIDS = {
+  'PP': '660363670',
+  '1': '1100475740',
+  '2': '1314121724',
+  '3': '2052746590',
+  '4': '1062010731',
+  '5': '1083301249',
+  '6': '888320900'
+};
+
+function isDzongkha(str) {
+  return /[\u0F00-\u0FFF]/.test(str);
+}
+
+function formatSkills(text) {
+  if (!text) return '';
+  const lines = text.split('\n').map(s => s.trim()).filter(s => s);
+  const goals = [];
+  let i = 0;
+  while (i < lines.length) {
+    if (isDzongkha(lines[i])) {
+      const dzo = lines[i];
+      const eng = (i + 1 < lines.length && !isDzongkha(lines[i+1])) ? lines[i+1] : null;
+      goals.push('<div class="goal"><span class="bullet">&bull;</span><span class="goal-content"><span class="dzo-script">' + esc(dzo) + '</span>' + (eng ? '<span class="dzo-english">' + esc(eng) + '</span>' : '') + '</span></div>');
+      i += eng ? 2 : 1;
+    } else {
+      goals.push('<div class="goal"><span class="bullet">&bull;</span><span class="goal-content plain-line">' + esc(lines[i]) + '</span></div>');
+      i++;
+    }
+  }
+  return goals.join('');
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function stripYear(label) {
+  return label.replace(/,\s*\d{4}$/, '');
+}
+
+function parseCSV(text) {
+  const rows = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const cols = [];
+    let cur = '', inQuote = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQuote = !inQuote; }
+      else if (ch === ',' && !inQuote) { cols.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur);
+    rows.push(cols);
+  }
+  return rows;
+}
+
+function buildClassHTML(classNum, rows) {
+  const classLabel = classNum === 'PP' ? 'PP' : 'Class ' + classNum;
+  const weeks = [];
+  let currentWeek = null;
+
+  for (const row of rows) {
+    const col0 = (row[0] || '').trim();
+    const col1 = (row[1] || '').trim();
+    if (col0.startsWith('WEEK OF ')) {
+      if (currentWeek) weeks.push(currentWeek);
+      currentWeek = { label: col0.replace('WEEK OF ', ''), rows: [] };
+    } else if (currentWeek && col0 && col0 !== 'Subject' && col0 !== '—') {
+      currentWeek.rows.push({ subject: col0, skills: col1 });
+    }
+  }
+  if (currentWeek) weeks.push(currentWeek);
+
+  if (weeks.length === 0) {
+    return '<div class="class-title">' + classLabel + ' — Weekly Update</div><div class="class-sub">Updated every Friday</div><div class="no-weeks">No updates posted yet. Check back after Friday.</div>';
+  }
+
+  const current = weeks[0];
+  const archive = weeks.slice(1);
+
+  // Current week table
+  const currentRows = current.rows.length > 0
+    ? current.rows.map(r => '<tr><td class="subject-col">' + esc(r.subject) + '</td><td>' + formatSkills(r.skills) + '</td></tr>').join('')
+    : '<tr><td colspan="2" style="padding:10px 18px;">No learning goals recorded this week.</td></tr>';
+
+  let html = '<div class="class-title">' + classLabel + ' — Weekly Update</div>';
+  html += '<div class="class-sub">Updated every Friday</div>';
+  html += '<div class="week-header">' + esc(stripYear(current.label)) + '</div>';
+  html += '<table class="week-table"><tr><th class="subject-col">Subject</th><th>Learning Goals This Week</th></tr>' + currentRows + '</table>';
+
+  // Archive
+  if (archive.length > 0) {
+    const archiveBlocks = archive.map(w => {
+      const rows = w.rows.map(r => '<tr><td class="subject-col">' + esc(r.subject) + '</td><td>' + formatSkills(r.skills) + '</td></tr>').join('');
+      return '<div class="archive-week"><div class="archive-week-label">' + esc(w.label) + '</div><table class="archive-table"><tr><th class="subject-col">Subject</th><th>Learning Goals</th></tr>' + rows + '</table></div>';
+    }).join('');
+
+    html += '<div class="archive-toggle" onclick="toggleArchive()"><span><span id="archiveArrow">▸ Show</span> previous weeks</span><span style="font-size:11px;">' + archive.length + ' week' + (archive.length === 1 ? '' : 's') + ' archived</span></div>';
+    html += '<div class="archive-section" id="archiveSection"><div style="height:0.75rem;"></div>' + archiveBlocks + '</div>';
+  }
+
+  return html;
+}
+
+function toggleArchive() {
+  var s = document.getElementById('archiveSection');
+  var a = document.getElementById('archiveArrow');
+  if (s.style.display === 'block') { s.style.display = 'none'; a.textContent = '▸ Show'; }
+  else { s.style.display = 'block'; a.textContent = '▾ Hide'; }
+}
+
+function showSelector() {
+  document.getElementById('selectorPage').style.display = 'flex';
+  document.getElementById('classPage').style.display = 'none';
+  history.pushState({}, '', window.location.pathname);
+}
+
+function loadClass(classNum) {
+  document.getElementById('selectorPage').style.display = 'none';
+  document.getElementById('classPage').style.display = 'block';
+  document.getElementById('classContent').innerHTML = '<div class="loading">Loading...</div>';
+  history.pushState({ class: classNum }, '', '?class=' + classNum);
+
+  const url = BASE_URL + '?gid=' + GIDS[classNum] + '&single=true&output=csv';
+  fetch(url)
+    .then(r => r.text())
+    .then(text => {
+      const rows = parseCSV(text);
+      document.getElementById('classContent').innerHTML = buildClassHTML(classNum, rows);
+    })
+    .catch(() => {
+      document.getElementById('classContent').innerHTML = '<div class="loading">Could not load data. Please try again.</div>';
+    });
+}
+
+// Handle browser back button
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.class) { loadClass(e.state.class); }
+  else { showSelector(); }
+});
+
+// Check URL on load for direct links (?class=2)
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const cls = params.get('class');
+  if (cls && GIDS[cls]) { loadClass(cls); }
+})();
+</script>
+</body>
+</html>
