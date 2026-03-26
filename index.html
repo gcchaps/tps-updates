@@ -383,6 +383,10 @@
 </footer>
 
 <script>
+  // Redirect updates subdomain to the updates page
+  if (window.location.hostname === 'updates.thimphups.com') {
+    window.location.replace('/updates.html');
+  }
   // Parallax on scroll
   function parallax() {
     const scrollY = window.scrollY;
