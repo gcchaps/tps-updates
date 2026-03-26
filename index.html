@@ -102,7 +102,6 @@
     <span>Thimphu Primary School</span>
   </a>
   <div style="display:flex; gap:12px; align-items:center;">
-    <a id="allClassesBtn" onclick="showSelector(); return false;" href="#" style="display:none; background:#F4D03F; color:#5a4000; padding:7px 16px; border-radius:6px; font-family:Poppins,sans-serif; font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; text-decoration:none;">← All classes</a>
     <a href="https://thimphups.com" class="home-link">← School Home</a>
   </div>
 </div>
@@ -236,7 +235,7 @@ function buildClassHTML(classNum, rows) {
   if (currentWeek) weeks.push(currentWeek);
 
   if (weeks.length === 0) {
-    return '<div class="class-title">' + classLabel + ' — Weekly Update</div><div class="class-sub">Updated every Saturday</div><div class="no-weeks">No updates posted yet. Check back after Saturday.</div>';
+    return '<div style="margin-bottom:12px;"><a onclick="showSelector(); return false;" href="#" style="font-family:Poppins,sans-serif; font-size:12px; font-weight:600; color:#5a4000; text-decoration:none; background:#F4D03F; padding:5px 14px; border-radius:20px;">← All classes</a></div><div class="class-title">' + classLabel + ' — Weekly Update</div><div class="class-sub">Updated every Saturday</div><div class="no-weeks">No updates posted yet. Check back after Saturday.</div>';
   }
 
   const current = weeks[0];
@@ -247,7 +246,7 @@ function buildClassHTML(classNum, rows) {
     ? current.rows.map(r => '<tr><td class="subject-col">' + esc(r.subject) + '</td><td>' + formatSkills(r.skills) + '</td></tr>').join('')
     : '<tr><td colspan="2" style="padding:10px 18px;">No learning goals recorded this week.</td></tr>';
 
-  let html = '<div class="class-title">' + classLabel + ' — Weekly Update</div>';
+  let html = '<div style="margin-bottom:12px;"><a onclick="showSelector(); return false;" href="#" style="font-family:Poppins,sans-serif; font-size:12px; font-weight:600; color:#5a4000; text-decoration:none; background:#F4D03F; padding:5px 14px; border-radius:20px;">← All classes</a></div><div class="class-title">' + classLabel + ' — Weekly Update</div>';
   html += '<div class="class-sub">Updated every Saturday</div>';
   html += '<div class="week-header">' + esc(stripYear(current.label)) + '</div>';
   html += '<table class="week-table"><tr><th class="subject-col">Subject</th><th>Learning Goals This Week</th></tr>' + currentRows + '</table>';
@@ -276,14 +275,12 @@ function toggleArchive() {
 function showSelector() {
   document.getElementById('selectorPage').style.display = 'flex';
   document.getElementById('classPage').style.display = 'none';
-  document.getElementById('allClassesBtn').style.display = 'none';
   history.pushState({}, '', window.location.pathname);
 }
 
 function loadClass(classNum) {
   document.getElementById('selectorPage').style.display = 'none';
   document.getElementById('classPage').style.display = 'block';
-  document.getElementById('allClassesBtn').style.display = 'inline-block';
   document.getElementById('classContent').innerHTML = '<div class="loading">Loading...</div>';
   history.pushState({ class: classNum }, '', '?class=' + classNum);
 
