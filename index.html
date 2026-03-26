@@ -385,7 +385,8 @@
 <script>
   // Redirect updates subdomain to the updates page
   if (window.location.hostname === 'updates.thimphups.com') {
-    window.location.replace('/updates.html');
+    const params = window.location.search;
+    window.location.replace('https://updates.thimphups.com/updates.html' + params);
   }
   // Parallax on scroll
   function parallax() {
