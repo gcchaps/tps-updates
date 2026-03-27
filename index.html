@@ -275,8 +275,14 @@ function buildClassHTML(classNum, rows) {
 function toggleArchive() {
   var s = document.getElementById('archiveSection');
   var a = document.getElementById('archiveArrow');
-  if (s.style.display === 'block') { s.style.display = 'none'; a.textContent = '▸ Show'; }
-  else { s.style.display = 'block'; a.textContent = '▾ Hide'; }
+  if (s.style.display === 'block') {
+    s.style.display = 'none';
+    a.textContent = '▸ Show';
+  } else {
+    s.style.display = 'block';
+    a.textContent = '▾ Hide';
+    gtag('event', 'view_archive', { 'page_url': window.location.href });
+  }
 }
 
 function showSelector() {
@@ -286,6 +292,11 @@ function showSelector() {
 }
 
 function loadClass(classNum) {
+  // Track class selection in Google Analytics
+  gtag('event', 'select_class', {
+    'class_number': classNum,
+    'class_label': classNum === 'PP' ? 'PP' : 'Class ' + classNum
+  });
   document.getElementById('selectorPage').style.display = 'none';
   document.getElementById('classPage').style.display = 'block';
   document.getElementById('classContent').innerHTML = '<div class="loading">Loading...</div>';
